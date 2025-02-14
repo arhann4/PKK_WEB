@@ -7,10 +7,10 @@
 }
 
 html, body {
-    margin: 0;
-    padding: 0;
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
 }
 
@@ -770,7 +770,7 @@ header {
 
 /* Hero Section */
 .hero-section {
-    height: 90vh;
+    height: 80vh;
     width: 100vw;
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
         url('../img/pisang.png');
@@ -781,7 +781,11 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-
+    animation: slideAnimation 24s infinite;
+    transition: background-image 1s ease-in-out;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 .hero-content {
@@ -887,9 +891,13 @@ header {
 /* Responsive Design */
 @media (max-width: 768px) {
     .hero-section {
-        background-attachment: scroll;
         height: 100vh;
-        width: 100%;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        margin-top: -100px; /* Menghilangkan celah atas */
+        background-position: center;
+        background-size: cover;
     }
 
     .hero-content h1 {
@@ -911,6 +919,12 @@ header {
 }
 
 @media (max-width: 480px) {
+    .hero-section {
+        height: 100vh;
+        width: 100vw;
+        margin-top: -100px; /* Menghilangkan celah atas */
+    }
+
     .hero-content h1 {
         font-size: clamp(1.2em, 3vw, 1.5em);
         white-space: normal; /* Memungkinkan text wrap pada layar kecil */
@@ -1297,4 +1311,42 @@ html {
     text-align: center;
     padding: 20px;
     margin-top: auto;
+}
+
+/* Media Query untuk ukuran spesifik */
+@media (max-width: 768px) and (min-height: 953px) {
+    .hero-section {
+        height: 100vh;
+        width: 100vw;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* Media Query untuk Mobile */
+@media screen and (max-width: 768px) {
+    .hero-section {
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        margin-top: -100px; /* Mengurangi margin-top */
+        background-position: center;
+        background-size: cover;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .hero-section {
+        height: 100vh;
+        width: 100vw;
+        margin-top: -100px; /* Mengurangi margin-top */
+    }
 }
