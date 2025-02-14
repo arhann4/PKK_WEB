@@ -68,20 +68,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Handle konfirmasi
         const confirmBtn = popup.querySelector('.confirm-btn');
-        confirmBtn.addEventListener('click', function() {
-            const cheeseSelected = popup.querySelector('input[value="cheese"]').checked;
-            const quantity = parseInt(document.getElementById('quantity').value);
-            let total = 3000; // Harga dasar
-            
-            if (cheeseSelected) {
-                total += 1000; // Tambah harga keju
-            }
-            
-            total *= quantity;
-            document.getElementById('total').textContent = `Rp ${total.toLocaleString('id-ID')}`;
-            document.body.removeChild(popup);
-            alert('Pesanan berhasil ditambahkan!');
-        });
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', function() {
+                const cheeseInput = popup.querySelector('input[value="cheese"]');
+                const quantityElement = document.getElementById('quantity');
+                const totalElement = document.getElementById('total');
+                
+                if (cheeseInput && quantityElement && totalElement) {
+                    const cheeseSelected = cheeseInput.checked;
+                    const quantity = parseInt(quantityElement.value) || 1; // Default ke 1 jika parsing gagal
+                    let total = 3000; // Harga dasar
+                    
+                    if (cheeseSelected) {
+                        total += 1000; // Tambah harga keju
+                    }
+                    
+                    total *= quantity;
+                    totalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+                    document.body.removeChild(popup);
+                    alert('Pesanan berhasil ditambahkan!');
+                }
+            });
+        }
 
         // Handle batal
         const cancelBtn = popup.querySelector('.cancel-btn');
@@ -114,33 +122,24 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('total').textContent = `Rp ${total.toLocaleString('id-ID')}`;
         }
     }
-
-    // Theme switch functionality
-    const themeToggle = document.getElementById('theme-toggle');
-    
-    // Check for saved theme preference
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    themeToggle.checked = currentTheme === 'dark';
-
-    themeToggle.addEventListener('change', function() {
-        const newTheme = this.checked ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-    });
 });
 
 // Smooth scroll untuk tombol "Lihat Menu"
-document.querySelector('.scroll-btn').addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    const menuSection = document.querySelector('#menu');
-    const headerOffset = 50;
-    const elementPosition = menuSection.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+const scrollBtn = document.querySelector('.scroll-btn');
+if (scrollBtn) {
+    scrollBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const menuSection = document.querySelector('#menu');
+        if (menuSection) {
+            const headerOffset = 50;
+            const elementPosition = menuSection.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-    window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
     });
-});
+}
