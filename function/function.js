@@ -27,74 +27,128 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Topping popup functionality
+    // Buy button functionality with popup and WhatsApp integration
     const buyButton = document.querySelector('.buy-btn');
     if (buyButton) {
-        buyButton.addEventListener('click', showToppingPopup);
-    }
+        buyButton.addEventListener('click', function() {
+            // Buat elemen popup
+            const popup = document.createElement('div');
+            popup.className = 'order-popup';
+            popup.innerHTML = `
+                <div class="popup-content">
+                    <h3>Detail Pesanan</h3>
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label for="nama">Nama:</label>
+                            <input type="text" id="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="kelas">Kelas:</label>
+                            <input type="text" id="kelas" required>
+                        </div>
+                        <div class="popup-buttons">
+                            <button type="submit" class="confirm-btn">Konfirmasi</button>
+                            <button type="button" class="cancel-btn">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            `;
 
-    function showToppingPopup() {
-        const popup = document.createElement('div');
-        popup.className = 'topping-popup';
-        popup.innerHTML = `
-            <div class="topping-popup-content">
-                <h3>Pilihan Topping</h3>
-                <div class="topping-option">
-                    <label>
-                        <input type="radio" name="topping" value="original" checked>
-                        <span>Original</span>
-                    </label>
-                </div>
-                <div class="topping-option">
-                    <label>
-                        <input type="radio" name="topping" value="cheese">
-                        <span>Extra Keju (+Rp 1.000)</span>
-                    </label>
-                </div>
-                <div class="topping-buttons">
-                    <button class="confirm-btn">
-                        <i class="fas fa-check"></i>
-                        Konfirmasi
-                    </button>
-                    <button class="cancel-btn">
-                        <i class="fas fa-arrow-left"></i>
-                        Kembali
-                    </button>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(popup);
+            // Tambahkan style untuk popup
+            const style = document.createElement('style');
+            style.textContent = `
+                .order-popup {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                }
+                .popup-content {
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    width: 90%;
+                    max-width: 400px;
+                }
+                .form-group {
+                    margin-bottom: 15px;
+                }
+                .form-group label {
+                    display: block;
+                    margin-bottom: 5px;
+                }
+                .form-group input {
+                    width: 100%;
+                    padding: 8px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                }
+                .popup-buttons {
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 10px;
+                    margin-top: 20px;
+                }
+                .confirm-btn, .cancel-btn {
+                    padding: 8px 16px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+                .confirm-btn {
+                    background: #4CAF50;
+                    color: white;
+                }
+                .cancel-btn {
+                    background: #f44336;
+                    color: white;
+                }
+            `;
 
-        // Handle konfirmasi
-        const confirmBtn = popup.querySelector('.confirm-btn');
-        if (confirmBtn) {
-            confirmBtn.addEventListener('click', function() {
-                const cheeseInput = popup.querySelector('input[value="cheese"]');
-                const quantityElement = document.getElementById('quantity');
-                const totalElement = document.getElementById('total');
+            document.head.appendChild(style);
+            document.body.appendChild(popup);
+
+            // Handle form submission with WhatsApp
+            const orderForm = document.getElementById('orderForm');
+            orderForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const nama = document.getElementById('nama').value;
+                const kelas = document.getElementById('kelas').value;
+                const quantity = document.getElementById('quantity').value || 1;
+                const total = 3000 * quantity;
                 
-                if (cheeseInput && quantityElement && totalElement) {
-                    const cheeseSelected = cheeseInput.checked;
-                    const quantity = parseInt(quantityElement.value) || 1; // Default ke 1 jika parsing gagal
-                    let total = 3000; // Harga dasar
-                    
-                    if (cheeseSelected) {
-                        total += 1000; // Tambah harga keju
-                    }
-                    
-                    total *= quantity;
-                    totalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+                if (nama && kelas) {
+                    // Format pesan WhatsApp
+                    const message = `Halo, saya ingin memesan:%0A%0A` +
+                        `Nama: ${nama}%0A` +
+                        `Kelas: ${kelas}%0A` +
+                        `Jumlah: ${quantity}%0A` +
+                        `Total: Rp ${total.toLocaleString('id-ID')}`;
+
+                    // Nomor WhatsApp tujuan (ganti dengan nomor yang sesuai)
+                    const phoneNumber = '6281522775937'; // Ganti dengan nomor WA yang dituju
+
+                    // Buat URL WhatsApp
+                    const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+
+                    // Buka WhatsApp di tab baru
+                    window.open(whatsappURL, '_blank');
+
                     document.body.removeChild(popup);
-                    alert('Pesanan berhasil ditambahkan!');
                 }
             });
-        }
 
-        // Handle batal
-        const cancelBtn = popup.querySelector('.cancel-btn');
-        cancelBtn.addEventListener('click', function() {
-            document.body.removeChild(popup);
+            // Handle cancel button
+            const cancelBtn = popup.querySelector('.cancel-btn');
+            cancelBtn.addEventListener('click', function() {
+                document.body.removeChild(popup);
+            });
         });
     }
 
@@ -118,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function updateTotal() {
             const quantity = parseInt(quantityInput.value);
-            const total = 3000 * quantity;
+            const total = 3000 * quantity; // Harga dasar
             document.getElementById('total').textContent = `Rp ${total.toLocaleString('id-ID')}`;
         }
     }
