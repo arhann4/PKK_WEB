@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const kelas = document.getElementById('kelas').value;
                     const quantity = document.getElementById('quantity').value || 1;
                     const pengambilan = document.getElementById('pengambilan').value;
-                    const total = 3000 * quantity;
+                    const total = 3500 * quantity;
                     
                     if (nama && kelas && pengambilan) {
                         // Format pesan WhatsApp
