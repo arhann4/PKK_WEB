@@ -47,20 +47,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="text" id="kelas" required>
                         </div>
                         <div class="form-group">
-                            <label for="pengambilan">Metode Pengambilan:</label>
-                            <select id="pengambilan" required>
-                                <option value="">Pilih metode pengambilan</option>
-                                <option value="Ambil di Stand">Ambil di Stand 14</option>
-                                <option value="Antar ke Kelas">Antar ke Kelas</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="pembayaran">Metode Pembayaran:</label>
-                            <select id="pembayaran" required>
-                                <option value="">Pilih metode pembayaran</option>
-                                <option value="Cash">Cash</option>
-                                <option value="QRIS">QRIS</option>
-                            </select>
+                            <label>Metode Pengambilan:</label>
+                            <div class="radio-group">
+                                <input type="radio" id="antar" name="pengambilan" value="Antar ke Kelas" required>
+                                <label for="antar">Antar ke Kelas</label>
+                                <input type="radio" id="ambil" name="pengambilan" value="Ambil di Stand">
+                                <label for="ambil">Ambil di Stand 14</label>
+                            </div>
                         </div>
                         <div class="popup-buttons">
                             <button type="submit" class="confirm-btn">Konfirmasi</button>
@@ -132,49 +125,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Handle form submission with WhatsApp
             const orderForm = document.getElementById('orderForm');
-            if (orderForm) {
-                orderForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const nama = document.getElementById('nama').value;
-                    const kelas = document.getElementById('kelas').value;
-                    const quantity = document.getElementById('quantity').value || 1;
-                    const pengambilan = document.getElementById('pengambilan').value;
-                    const pembayaran = document.getElementById('pembayaran').value;
-                    const total = 3000 * quantity;
-                    
-                    // Periksa semua field terisi
-                    if (nama && kelas && pengambilan && pembayaran) {
-                        // Format pesan WhatsApp
-                        const message = `Halo, saya ingin memesan: Dadar Gulung V2 %0A%0A` +
-                            `Nama: ${nama}%0A` +
-                            `Kelas: ${kelas}%0A` +
-                            `Jumlah: ${quantity}%0A` +
-                            `Pengambilan: ${pengambilan}%0A` +
-                            `Pembayaran: ${pembayaran}%0A` +
-                            `Total: Rp ${total.toLocaleString('id-ID')}`;
+            orderForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const nama = document.getElementById('nama').value;
+                const kelas = document.getElementById('kelas').value;
+                const quantity = document.getElementById('quantity').value || 1;
+                const pengambilan = document.querySelector('input[name="pengambilan"]:checked').value;
+                const total = 3000 * quantity;
+                
+                if (nama && kelas) {
+                    // Format pesan WhatsApp
+                    const message = `Halo, saya ingin memesan: Pisang Palm Crunchy %0A%0A` +
+                        `Nama: ${nama}%0A` +
+                        `Kelas: ${kelas}%0A` +
+                        `Jumlah: ${quantity}%0A` +
+                        `Pengambilan: ${pengambilan}%0A` +
+                        `Total: Rp ${total.toLocaleString('id-ID')}`;
 
-                        // Nomor WhatsApp tujuan
-                        const phoneNumber = '6285792178429';
+                    // Nomor WhatsApp tujuan (ganti dengan nomor yang sesuai)
+                    const phoneNumber = '6285792178429'; // Ganti dengan nomor WA yang dituju
 
-                        // Buat URL WhatsApp
-                        const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+                    // Buat URL WhatsApp
+                    const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
 
-                        // Buka WhatsApp di tab baru
-                        window.open(whatsappURL, '_blank');
+                    // Buka WhatsApp di tab baru
+                    window.open(whatsappURL, '_blank');
 
-                        // Tutup popup
-                        document.body.removeChild(popup);
-                    }
-                });
-            }
+                    document.body.removeChild(popup);
+                }
+            });
 
             // Handle cancel button
             const cancelBtn = popup.querySelector('.cancel-btn');
-            if (cancelBtn) {
-                cancelBtn.addEventListener('click', function() {
-                    document.body.removeChild(popup);
-                });
-            }
+            cancelBtn.addEventListener('click', function() {
+                document.body.removeChild(popup);
+            });
         });
     }
 
@@ -198,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function updateTotal() {
             const quantity = parseInt(quantityInput.value);
-            const total = 3500 * quantity; // Harga dasar
+            const total = 3000 * quantity; // Harga dasar
             document.getElementById('total').textContent = `Rp ${total.toLocaleString('id-ID')}`;
         }
     }
