@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Special - Detail Produk</title>
+    <link rel="stylesheet" href="../css/pisang.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    
+    <div class="product-detail-container">
+        <a href="view.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+        
+        <div class="product-detail">
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591" alt="Pizza Special">
+            </div>
+            
+            <div class="product-info">
+                <h1>Pizza Special</h1>
+                
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(4.5/5)</span>
+                </div>
+
+                <div class="price">
+                    <h2>Rp 3.000</h2>
+                    <span class="price-note">Harga per porsi</span>
+                </div>
+
+                <div class="description">
+                    <h3>Deskripsi Produk</h3>
+                    <p>Pizza Special kami dibuat dengan bahan-bahan berkualitas tinggi dan dipanggang dengan sempurna.</p>
+                </div>
+
+                <div class="order-section">
+                    <div class="quantity">
+                        <label for="quantity">Jumlah:</label>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" id="quantity" value="1" min="1">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="total-price">
+                        Total: <span id="total">Rp 3.000</span>
+                    </div>
+                    
+                    <button class="buy-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        Pesan Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../function/function.js"></script>
+</body>
+</html>

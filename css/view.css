@@ -1,0 +1,1300 @@
+/* Reset dan pengaturan dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* Header Styling */
+header {
+    background: #2c3e50;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.welcome-text h1 {
+    color: white;
+    font-size: 2em;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: fadeInDown 0.5s ease;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Product Grid dan Card Styling */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Styling untuk gambar produk */
+.product-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Styling untuk judul produk */
+.product-card h3 {
+    margin: 15px 0 10px;
+    color: #2c3e50;
+    font-size: 1.4em;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Rating bintang */
+.rating {
+    color: #f1c40f;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .product-card img {
+        height: 250px;
+    }
+
+    .product-card h3 {
+        font-size: 1.2em;
+    }
+
+    .rating {
+        font-size: 1em;
+    }
+
+    .welcome-text h1 {
+        font-size: 1.5em;
+        letter-spacing: 1px;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-text h1 {
+        font-size: 1.2em;
+    }
+    
+    header {
+        padding: 15px;
+    }
+}
+
+/* Loading effect untuk gambar */
+.product-card img {
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Section heading */
+.featured-products h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2em;
+    margin: 30px 0;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #eee;
+}
+
+/* Hamburger Menu Styling */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: transparent;
+    color: #ffffff;
+    border: none;
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.3s;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Efek saat sidebar aktif */
+.sidebar.active ~ .menu-toggle {
+    left: 270px; /* Menggeser hamburger ke kanan saat sidebar aktif */
+}
+
+/* Animasi hamburger */
+.menu-toggle span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+/* Animasi hamburger menjadi X */
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+    background-color: #ffffff;
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    background-color: #ffffff;
+}
+
+/* Animasi sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #2c3e50;
+    color: white;
+    padding: 80px 20px 20px 20px;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    z-index: 1000;
+    transition: 0.3s;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar h2 {
+    color: white;
+    margin-bottom: 30px;
+    font-size: 1.5em;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.sidebar ul li:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+}
+
+.sidebar ul li a i {
+    width: 20px;
+    text-align: center;
+}
+
+/* Content */
+.content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Menghapus efek transisi pada content saat sidebar aktif */
+.sidebar.active ~ .content {
+    margin-left: 0 !important;
+    transform: none !important;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #2c3e50;
+    position: fixed;
+    left: -250px;
+    top: 0;
+    z-index: 1000;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Sidebar responsive */
+    .sidebar {
+        width: 80%; /* Mengubah lebar sidebar menjadi 80% dari layar */
+        max-width: 300px;
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .sidebar.active ~ .content {
+        margin-left: 0; /* Konten tetap di posisi awal saat sidebar aktif di mobile */
+        opacity: 0.5; /* Membuat konten sedikit transparan saat sidebar aktif */
+    }
+
+    /* Menu toggle responsive */
+    .menu-toggle {
+        top: 10px;
+        left: 10px;
+    }
+
+    .sidebar.active ~ .menu-toggle {
+        left: calc(80% - 30px); /* Menyesuaikan posisi hamburger dengan lebar sidebar */
+        max-left: 270px;
+    }
+
+    /* Header responsive */
+    header {
+        flex-direction: column;
+        padding: 10px;
+        margin-top: 40px; /* Memberikan ruang untuk hamburger menu */
+    }
+    
+    .search-bar {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .user-menu {
+        width: 100%;
+        justify-content: space-around;
+        padding: 10px 0;
+    }
+
+    /* Grid responsive */
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 15px;
+        padding: 10px;
+    }
+
+    /* Product card responsive */
+    .product-card {
+        padding: 10px;
+    }
+
+    .product-card img {
+        height: 150px;
+    }
+
+    .product-card h3 {
+        font-size: 1em;
+        margin: 10px 0 5px;
+    }
+
+    .price {
+        font-size: 1.1em;
+    }
+
+    .rating {
+        font-size: 0.9em;
+    }
+
+    .buy-btn {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    /* Content responsive */
+    .content {
+        padding: 10px;
+        padding-top: 60px;
+        transition: all 0.3s ease;
+    }
+
+    /* Overlay saat sidebar aktif */
+    .sidebar.active::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+    }
+
+    /* Section heading responsive */
+    section h2 {
+        padding: 15px 10px;
+        font-size: 1.2em;
+    }
+
+    /* Category card responsive */
+    .category-card {
+        padding: 15px;
+    }
+
+    .category-card i {
+        font-size: 1.5em;
+    }
+}
+
+/* Tambahan untuk device sangat kecil */
+@media (max-width: 375px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .product-card img {
+        height: 180px;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .user-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}
+
+/* Hover effect untuk rating */
+.rating i {
+    transition: transform 0.2s ease;
+}
+
+.rating:hover i {
+    transform: scale(1.2);
+}
+
+/* Footer Styling */
+.footer {
+    background: #2c3e50;
+    color: white;
+    padding: 60px 0 20px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-section h3 {
+    color: #3498db;
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 2px;
+    background: #3498db;
+}
+
+.about-text {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    color: white;
+    font-size: 1.2em;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #3498db;
+}
+
+.quick-links {
+    list-style: none;
+}
+
+.quick-links li {
+    margin-bottom: 12px;
+}
+
+.quick-links a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+}
+
+.quick-links a:hover {
+    color: #3498db;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.team-member {
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.team-member:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.team-member i {
+    font-size: 1.5em;
+    color: #3498db;
+    margin-bottom: 8px;
+}
+
+.team-member p {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.team-member span {
+    font-size: 0.9em;
+    color: #bdc3c7;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Product Detail Styling */
+.product-detail-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #2c3e50;
+    text-decoration: none;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+
+.back-button:hover {
+    transform: translateX(-5px);
+}
+
+.product-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.product-info h1 {
+    color: #2c3e50;
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.product-info .rating {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.product-info .rating span {
+    color: #7f8c8d;
+    margin-left: 10px;
+}
+
+.price {
+    margin: 25px 0;
+}
+
+.price h2 {
+    color: #e74c3c;
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+.price-note {
+    color: #7f8c8d;
+    font-size: 0.9em;
+}
+
+.description {
+    margin: 25px 0;
+}
+
+.description h3 {
+    color: #2c3e50;
+    margin: 15px 0 10px;
+}
+
+.description ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.description ul li {
+    padding: 5px 0;
+    padding-left: 25px;
+    position: relative;
+}
+
+.description ul li::before {
+    content: '✓';
+    color: #27ae60;
+    position: absolute;
+    left: 0;
+}
+
+.order-section {
+    margin-top: 30px;
+}
+
+.quantity {
+    margin-bottom: 20px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.qty-btn {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: #2c3e50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.qty-btn:hover {
+    background: #34495e;
+}
+
+#quantity {
+    width: 60px;
+    height: 35px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.buy-btn {
+    width: 100%;
+    padding: 15px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.buy-btn:hover {
+    background: #34495e;
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-detail {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .product-info h1 {
+        font-size: 1.5em;
+    }
+
+    .price h2 {
+        font-size: 1.5em;
+    }
+}
+
+/* Hero Section */
+.hero-section {
+    height: 90vh;
+    width: 100vw;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('../img/pisang.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: clamp(1.8em, 5vw, 2.5em); /* Ukuran font responsif */
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+}
+
+.hero-content p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.scroll-btn {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.scroll-btn span {
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ecf0f1;
+    font-weight: 500;
+}
+
+.scroll-btn i {
+    font-size: 1.5em;
+    transition: transform 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+    }
+    40% {
+        transform: translateY(-30px) translateX(-50%);
+    }
+    60% {
+        transform: translateY(-15px) translateX(-50%);
+    }
+}
+
+/* Featured Products Section */
+.featured-products {
+    padding: 80px 0;
+    background: white;
+    position: relative;
+}
+
+.featured-products h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.featured-products h2::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: #3498db;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        background-attachment: scroll;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.5em, 4vw, 2em);
+        letter-spacing: 1px;
+    }
+
+    .hero-content p {
+        font-size: 1.2em;
+    }
+
+    .featured-products {
+        padding: 40px 0;
+    }
+
+    .featured-products h2 {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content h1 {
+        font-size: clamp(1.2em, 3vw, 1.5em);
+        white-space: normal; /* Memungkinkan text wrap pada layar kecil */
+        padding: 0 10px;
+    }
+
+    .hero-content p {
+        font-size: 1em;
+    }
+
+    .scroll-btn {
+        bottom: 30px;
+    }
+
+    .featured-products h2 {
+        font-size: 1.5em;
+    }
+}
+
+/* Smooth Scroll Behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Scroll Button Styling */
+.scroll-btn {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.scroll-btn span {
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ecf0f1;
+    font-weight: 500;
+}
+
+.scroll-btn i {
+    font-size: 1.5em;
+    transition: transform 0.3s ease;
+}
+
+/* Animasi scroll button */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) translateX(-50%);
+    }
+    40% {
+        transform: translateY(-30px) translateX(-50%);
+    }
+    60% {
+        transform: translateY(-15px) translateX(-50%);
+    }
+}
+
+/* Hover effect untuk scroll button */
+.scroll-btn:hover {
+    opacity: 0.9;
+}
+
+.scroll-btn:hover i {
+    transform: translateY(5px);
+}
+
+/* Topping Section Styling */
+.toppings {
+    padding: 60px 20px;
+    background: #f8f9fa;
+}
+
+.toppings h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.toppings h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #3498db;
+}
+
+.topping-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    padding: 20px;
+}
+
+.topping-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.topping-card:hover {
+    transform: translateY(-5px);
+}
+
+.topping-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.topping-card:hover img {
+    transform: scale(1.05);
+}
+
+.topping-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.topping-info h3 {
+    color: #2c3e50;
+    font-size: 1.4em;
+    margin-bottom: 8px;
+}
+
+.topping-info p {
+    color: #7f8c8d;
+    font-size: 1em;
+}
+
+/* Responsive Design untuk Topping */
+@media (max-width: 768px) {
+    .topping-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .topping-card img {
+        height: 200px;
+    }
+
+    .topping-info h3 {
+        font-size: 1.2em;
+    }
+
+    .topping-info p {
+        font-size: 0.9em;
+    }
+
+    .toppings h2 {
+        font-size: 2em;
+        margin-bottom: 30px;
+    }
+}
+
+/* Topping Selection Styling */
+.toppings-selection {
+    margin: 25px 0;
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.topping-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.topping-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.topping-option:hover {
+    border-color: #2c3e50;
+}
+
+.topping-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.topping-option img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.topping-name {
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 5px 0;
+}
+
+.topping-price {
+    color: #e74c3c;
+    font-size: 0.9em;
+}
+
+.checkmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.topping-option input[type="checkbox"]:checked + .checkmark {
+    background: #2c3e50;
+    border-color: #2c3e50;
+}
+
+.topping-option input[type="checkbox"]:checked + .checkmark:after {
+    content: '✓';
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.total-price {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin: 20px 0;
+    color: #2c3e50;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .topping-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .topping-option img {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* Topping Popup Styling */
+.topping-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.topping-popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    animation: slideUp 0.3s ease;
+}
+
+.topping-popup h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.topping-option {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.topping-option label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1em;
+    color: #2c3e50;
+    cursor: pointer;
+}
+
+.topping-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.topping-buttons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.confirm-btn {
+    background: #2c3e50;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background: #34495e;
+}
+
+.cancel-btn {
+    background: #e74c3c;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background: #c0392b;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Menu Section */
+#menu {
+    width: 100%;
+    max-width: 1200px;
+    padding: 50px 20px;
+    margin: 0 auto;
+}
+
+/* Footer */
+.footer {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
