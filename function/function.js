@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         `Total: Rp ${total.toLocaleString('id-ID')}`;
 
                     // Nomor WhatsApp tujuan (ganti dengan nomor yang sesuai)
-                    const phoneNumber = '6281522775937'; // Ganti dengan nomor WA yang dituju
+                    const phoneNumber = '6285792178429'; // Ganti dengan nomor WA yang dituju
 
                     // Buat URL WhatsApp
                     const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
