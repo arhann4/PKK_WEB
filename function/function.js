@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const quantity = document.getElementById('quantity').value || 1;
                     const pengambilan = document.getElementById('pengambilan').value;
                     const pembayaran = document.getElementById('pembayaran').value;
-                    const total = 3000 * quantity;
+                    const total = 3500 * quantity;
                     
                     // Periksa semua field terisi
                     if (nama && kelas && pengambilan && pembayaran) {
