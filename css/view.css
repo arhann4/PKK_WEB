@@ -851,7 +851,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: slideAnimation 24s infinite;
+    animation: slideAnimation 15s infinite;
     transition: background-image 1s ease-in-out;
     overflow: hidden;
     margin: 0;
@@ -1418,5 +1418,25 @@ html {
         height: 75vh;
         width: 100vw;
         margin-top: -100px;
+    }
+}
+
+/* Tambahkan keyframes untuk animasi slideshow */
+@keyframes slideAnimation {
+    0%, 25% {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url('../img/pisang.png');
+    }
+    30%, 50% {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url('../img/dadar.jpg');
+    }
+    55%, 75% {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url('../img/pisang.png');
+    }
+    80%, 100% {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url('../img/dadar.jpg');
     }
 }
