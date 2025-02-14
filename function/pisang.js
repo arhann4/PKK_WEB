@@ -54,14 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <option value="Antar ke Kelas">Antar ke Kelas</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="pembayaran">Metode Pembayaran:</label>
-                            <select id="pembayaran" required>
-                                <option value="">Pilih metode pembayaran</option>
-                                <option value="Cash">Cash</option>
-                                <option value="QRIS">QRIS</option>
-                            </select>
-                        </div>
                         <div class="popup-buttons">
                             <button type="submit" class="confirm-btn">Konfirmasi</button>
                             <button type="button" class="cancel-btn">Batal</button>
@@ -139,18 +131,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     const kelas = document.getElementById('kelas').value;
                     const quantity = document.getElementById('quantity').value || 1;
                     const pengambilan = document.getElementById('pengambilan').value;
-                    const pembayaran = document.getElementById('pembayaran').value;
                     const total = 3000 * quantity;
                     
                     // Periksa semua field terisi
-                    if (nama && kelas && pengambilan && pembayaran) {
+                    if (nama && kelas && pengambilan) {
                         // Format pesan WhatsApp
                         const message = `Halo, saya ingin memesan: Pisang Palm Crunchy %0A%0A` +
                             `Nama: ${nama}%0A` +
                             `Kelas: ${kelas}%0A` +
                             `Jumlah: ${quantity}%0A` +
                             `Pengambilan: ${pengambilan}%0A` +
-                            `Pembayaran: ${pembayaran}%0A` +
                             `Total: Rp ${total.toLocaleString('id-ID')}`;
 
                         // Nomor WhatsApp tujuan
