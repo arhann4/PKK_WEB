@@ -121,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const nama = document.getElementById('nama').value;
                 const kelas = document.getElementById('kelas').value;
                 const quantity = document.getElementById('quantity').value || 1;
+                const productName = buyButton.getAttribute('data-product');
                 const total = 3000 * quantity;
                 
                 if (nama && kelas) {
@@ -128,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const message = `Halo, saya ingin memesan:%0A%0A` +
                         `Nama: ${nama}%0A` +
                         `Kelas: ${kelas}%0A` +
+                        `Produk: ${productName}%0A` +
                         `Jumlah: ${quantity}%0A` +
                         `Total: Rp ${total.toLocaleString('id-ID')}`;
 
