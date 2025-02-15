@@ -1801,12 +1801,12 @@ html {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-    width: auto; /* Mengubah dari 100% menjadi auto */
-    min-width: 120px; /* Memberikan lebar minimum */
+    width: auto;
+    min-width: 120px;
     margin-top: 15px;
     position: relative;
     overflow: hidden;
-    display: inline-flex; /* Mengubah dari flex menjadi inline-flex */
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
@@ -1843,7 +1843,6 @@ html {
     box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
 }
 
-/* Menambahkan ikon ke button */
 .beli-btn:after {
     content: '→';
     font-size: 18px;
@@ -1863,7 +1862,7 @@ html {
     }
     
     .beli-btn:after {
-        font-size: 16px;
+        font-size: 14px; /* Ukuran panah lebih kecil di mobile */
     }
 }
 
