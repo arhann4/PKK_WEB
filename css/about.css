@@ -73,7 +73,7 @@ body {
 /* Hero Section dengan multiple background */
 .hero-section {
     background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.9));
-    height: 100vh;
+    height: 78vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -422,6 +422,29 @@ body {
     .social-links {
         justify-content: center;
     }
+
+    .sidebar {
+        width: 80%;
+        max-width: 300px;
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .menu-toggle {
+        position: fixed;
+        left: 20px;
+    }
+
+    .menu-toggle.active {
+        left: 20px;
+    }
+
+    .sidebar.active ~ .content {
+        margin-left: 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -438,7 +461,7 @@ body {
     }
 }
 
-/* Hamburger Menu Styling */
+/* Menu Toggle/Hamburger */
 .menu-toggle {
     position: fixed;
     top: 20px;
@@ -568,28 +591,6 @@ body {
 
 .sidebar.active ~ .content {
     margin-left: 250px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 80%;
-        max-width: 300px;
-        transform: translateX(-100%);
-    }
-    
-    .sidebar.active {
-        transform: translateX(0);
-    }
-
-    .sidebar.active ~ .content {
-        margin-left: 0;
-    }
-
-    .menu-toggle.active {
-        left: calc(80% - 30px);
-        max-left: 270px;
-    }
 }
 
 /* Audio */

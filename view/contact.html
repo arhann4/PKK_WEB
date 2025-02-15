@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact PPLG - Beken Meal</title>
+    <link rel="stylesheet" href="../css/contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Audio players -->
+    <audio id="song1" class="hidden-audio" autoplay>
+        <source src="../audio/Masa SMA - Angel 9 Band Unofficial Lirik Musik Video.mp3" type="audio/mp3">
+    </audio>
+    
+    <audio id="song2" class="hidden-audio">
+        <source src="../audio/Virgoun - Saat Kau Telah Mengerti Lirik Lagu.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- Hamburger Menu -->
+    <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="../img/logo.jpg" alt="Logo">
+            <h2>Beken Meal</h2>
+        </div>
+        <ul>
+            <li><a href="view.html"><i class="fas fa-home"></i>Beranda</a></li>
+            <li><a href="about.html"><i class="fas fa-info-circle"></i>Tentang</a></li>
+            <li><a href="menu.html"><i class="fas fa-utensils"></i>Menu</a></li>
+            <li><a href="contact.html" class="active"><i class="fas fa-phone"></i>Kontak</a></li>
+        </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Hubungi Kami</h1>
+                <p>Kirim pesan kepada kami jika ada pertanyaan atau komplain <br>Kami siap melayani anda!</p>
+            </div>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Informasi Kontak</h2>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+62 815-2277-5937</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>bakenmeal@gmail.com</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Jl. Gunung Arjuno No.17, Mimbaan Tengah, Mimbaan, Kec. Panji, Kabupaten Situbondo, Jawa Timur 68322</p>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h2>Kirim Pesan</h2>
+                <form action="mailto:arhannn16@gmail.com" method="post" enctype="text/plain">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Nama Lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" placeholder="Subjek" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" placeholder="Pesan" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Kirim Pesan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>Tentang Kami</h3>
+                <p>Beken Meal adalah restoran yang menyajikan makanan berkualitas dengan harga terjangkau. Kami berkomitmen untuk memberikan pengalaman kuliner terbaik bagi pelanggan kami.</p>
+            </div>
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="view.html">Beranda</a></li>
+                    <li><a href="about.html">Tentang</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="contact.html">Kontak</a></li>
+                </ul>
+            </div>
+            <div class="footer-section contact">
+                <h3>Hubungi Kami</h3>
+                <p>
+                    <i class="fas fa-phone"></i>
+                    <span>+62 815-2277-5937</span>
+                </p>
+                <p>
+                    <i class="fas fa-envelope"></i>
+                    <span>bakenmeal@gmail.com</span>
+                </p>
+                <p>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Jl. Gunung Arjuno No.17, Mimbaan Tengah, Mimbaan, Kec. Panji, Kabupaten Situbondo, Jawa Timur 68322</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Audio script
+        const song1 = document.getElementById('song1');
+        const song2 = document.getElementById('song2');
+        let currentSong = 1;
+        let isPlaying = false;
+
+        song1.addEventListener('ended', () => {
+            song1.pause();
+            currentSong = 2;
+            song2.play();
+        });
+
+        song2.addEventListener('ended', () => {
+            song2.pause();
+            currentSong = 1;
+            song1.play();
+        });
+
+        function startAutoPlay() {
+            song1.play();
+            isPlaying = true;
+        }
+
+        document.addEventListener('click', function() {
+            if (!isPlaying) {
+                startAutoPlay();
+            }
+        }, { once: true });
+
+        window.onload = function() {
+            startAutoPlay();
+        };
+
+        // Sidebar toggle script
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            sidebar.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
