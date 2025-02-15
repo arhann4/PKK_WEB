@@ -1808,16 +1808,37 @@ html {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
 }
 
-.beli-btn i {
-    font-size: 16px;
-    transition: transform 0.3s ease;
+.beli-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
 }
 
-.beli-btn:hover i {
-    transform: translateX(3px);
+.beli-btn:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.beli-btn:hover:before {
+    left: 100%;
+}
+
+.beli-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
 }
 
 @media (max-width: 768px) {
@@ -1825,10 +1846,6 @@ html {
         padding: 10px 20px;
         font-size: 14px;
         min-width: 100px;
-    }
-    
-    .beli-btn i {
-        font-size: 14px;
     }
 }
 
