@@ -6,22 +6,224 @@
     font-family: Arial, sans-serif;
 }
 
-html {
-    width: 100%;
+html, body {
     height: 100%;
-    margin: 0;
-    padding: 0;
     overflow-x: hidden;
-    position: relative;
 }
 
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+    overflow-y: auto;
     position: relative;
+}
+
+/* Mengatur container utama */
+.main-container {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Mengatur section hero */
+.hero-section {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Mengatur sidebar */
+.sidebar {
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+    overflow: hidden; /* Pastikan tidak ada overflow */
+}
+
+/* Styling untuk scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .sidebar {
+        position: absolute; /* Sesuaikan posisi untuk mobile */
+    }
+}
+
+.container {
+    width: 100%;
+    height: auto;
+}
+
+/* Styling untuk scrollbar window */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Optimasi scroll */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Menghilangkan scrollbar di semua elemen kecuali window */
+*::-webkit-scrollbar {
+    display: none !important;
+}
+
+/* Memastikan tidak ada scrollbar di elemen lain */
+* {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* Styling untuk scrollbar */
+#root::-webkit-scrollbar {
+    width: 8px;
+}
+
+#root::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#root::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+#root::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.content-container {
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Styling untuk scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Hanya mengizinkan scrollbar di window */
+::-webkit-scrollbar {
+    width: 8px;
+    display: block;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.content {
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Styling untuk scrollbar body */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.main-wrapper {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* Styling untuk scrollbar */
+.main-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.main-wrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.main-wrapper::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.main-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 /* Header Styling */
@@ -1439,4 +1641,58 @@ html {
         background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
             url('../img/dadar.jpg');
     }
+}
+
+.menu-link {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.menu-link span {
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ecf0f1;
+    font-weight: 500;
+}
+
+.menu-link i {
+    font-size: 1.5em;
+    transition: transform 0.3s ease;
+}
+
+.menu-link:hover {
+    opacity: 0.9;
+}
+
+.menu-link:hover i {
+    transform: translateY(5px);
+}
+
+.button-buy {
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button-buy:hover {
+    background-color: #45a049;
 }

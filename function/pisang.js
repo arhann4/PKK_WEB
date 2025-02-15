@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <label for="pengambilan">Metode Pengambilan:</label>
                             <select id="pengambilan" required>
                                 <option value="">Pilih metode pengambilan</option>
-                                <option value="Ambil di Stand">Ambil di Stand 14</option>
+                                <option value="Ambil di Stand 14">Ambil di Stand 14</option>
                                 <option value="Antar ke Kelas">Antar ke Kelas</option>
                             </select>
                         </div>

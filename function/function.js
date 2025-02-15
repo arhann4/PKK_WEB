@@ -213,3 +213,11 @@ if (scrollBtn) {
         }
     });
 }
+
+document.getElementById('scrollToMenu').addEventListener('click', function() {
+    const menuSection = document.getElementById('menu');
+    menuSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+    });
+});
