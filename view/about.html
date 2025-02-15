@@ -8,10 +8,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
+    <style>
+        .hidden-audio {
+            display: none;
+        }
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 50px;
+            display: flex;
+            gap: 10px;
+        }
+        .audio-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 15px;
+        }
+        .audio-btn.active {
+            background: #4CAF50;
+        }
+    </style>
+    <div class="main-container">
+        <button class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+      <div class="sidebar">
+        <div class="logo">
+            <img src="../img/logo.jpg" alt="Logo">
+            <h2>Baken Meal</h2>
+        </div>
+        <ul>
+            <li><a href="view.html"><i class="fas fa-home"></i>Beranda</a></li>
+            <li><a href="about.html" class="active"><i class="fas fa-info-circle"></i>Tentang</a></li>
+            <li><a href="menu.html"><i class="fas fa-utensils"></i>Menu</a></li>
+            <li><a href="contact.html"><i class="fas fa-phone"></i>Kontak</a></li>
+        </ul>
+    </div>
+
+    <!-- Audio players -->
+    <audio id="song1" class="hidden-audio" autoplay>
+        <source src="../audio/Masa SMA - Angel 9 Band Unofficial Lirik Musik Video.mp3" type="audio/mp3">
+    </audio>
+    
+    <audio id="song2" class="hidden-audio">
+        <source src="../audio/Virgoun - Saat Kau Telah Mengerti Lirik Lagu.mp3" type="audio/mp3">
+    </audio>
+
     <div class="hero-section">
-        <nav class="navbar">
-            <a href="view.html" class="back-btn"><i class="fas fa-arrow-left"></i> Kembali</a>
-        </nav>
         <div class="hero-content">
             <h1>PPLG SMKN 1 PANJI</h1>
             <p>Pengembangan Perangkat Lunak dan Gim</p>
@@ -27,10 +80,11 @@
             
             <div class="about-content">
                 <div class="about-image">
-                    <img src="../img/1.jpg" alt="PPLG Lab">
+                    <img src="../img/ki.jpeg" alt="PPLG Lab">
+                    <img src="../img/htl1.jpeg" alt="PPLG Lab">
                 </div>
                 <div class="about-text">
-                    <h3>Mengapa Memilih PPLG?</h3>
+                    <h3>PPLG SMKN 1 PANJI</h3>
                     <p>PPLG (Pengembangan Perangkat Lunak dan Gim) adalah jurusan yang memfokuskan pada pengembangan software dan game. Di era digital ini, kebutuhan akan programmer dan game developer terus meningkat, menjadikan PPLG sebagai pilihan karir yang menjanjikan.</p>
                 </div>
             </div>
@@ -116,7 +170,7 @@
         <div class="container">
             <h2>Bergabung dengan PPLG</h2>
             <p>Siap menjadi bagian dari revolusi digital? PPLG SMKN 1 Panji menunggu bakat-bakat muda seperti kamu!</p>
-            <a href="#" class="cta-button">Pelajari Lebih Lanjut</a>
+            <a href="https://www.smkn1panji-sit.sch.id/" class="cta-button">Pelajari Lebih Lanjut</a>
         </div>
     </div>
 
@@ -136,16 +190,62 @@
                 <div class="footer-section">
                     <h3>Ikuti Kami</h3>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/smkn1panji/?hl=en"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@SMKNEGERI1PANJI"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 PPLG SMKN 1 Panji. All rights reserved.</p>
+                <p>&copy; 2025 PPLG SMKN 1 Panji. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <script>
+        const song1 = document.getElementById('song1');
+        const song2 = document.getElementById('song2');
+        let currentSong = 1;
+        let isPlaying = false;
+
+        // Event listener untuk pergantian lagu
+        song1.addEventListener('ended', () => {
+            song1.pause();
+            currentSong = 2;
+            song2.play();
+        });
+
+        song2.addEventListener('ended', () => {
+            song2.pause();
+            currentSong = 1;
+            song1.play();
+        });
+
+        // Fungsi untuk memulai pemutaran otomatis
+        function startAutoPlay() {
+            song1.play();
+            isPlaying = true;
+        }
+
+        // Memulai pemutaran saat ada interaksi pengguna
+        document.addEventListener('click', function() {
+            if (!isPlaying) {
+                startAutoPlay();
+            }
+        }, { once: true });
+
+        // Mencoba memulai pemutaran saat halaman dimuat
+        window.onload = function() {
+            startAutoPlay();
+        };
+
+        // Sidebar toggle script
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            sidebar.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

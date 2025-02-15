@@ -343,7 +343,85 @@ body {
 
 /* Mengatur sidebar */
 .sidebar {
-    background: var(--sidebar-bg);
+    width: 250px;
+    height: 100vh;
+    background: #2c3e50;
+    position: fixed;
+    left: -250px;
+    top: 0;
+    z-index: 1000;
+    transition: 0.3s;
+    padding-top: 20px;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Style untuk link yang aktif/halaman saat ini */
+.sidebar ul li a.active {
+    background: rgba(241, 196, 15, 0.1);
+    color: #f1c40f;
+    border-left: 4px solid #f1c40f;
+}
+
+.sidebar ul li a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar ul li a i {
+    width: 25px;
+    text-align: center;
+}
+
+/* Logo di sidebar */
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ffffff33;
+    margin: 70px 20px 20px 20px;
+}
+
+.sidebar .logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+}
+
+.sidebar .logo h2 {
+    color: white;
+    font-size: 20px;
+    margin: 0;
 }
 
 /* Styling untuk scrollbar */
@@ -742,7 +820,7 @@ header {
     height: 100vh;
     background: #2c3e50;
     color: white;
-    padding: 80px 20px 20px 20px;
+    padding: 60px 20px 20px 20px;
     position: fixed;
     top: 0;
     left: -250px;
@@ -815,7 +893,7 @@ header {
     top: 0;
     z-index: 1000;
     transition: 0.3s;
-    padding-top: 60px;
+    padding-top: 20px;
 }
 
 .sidebar.active {
