@@ -1,3 +1,62 @@
+/* Theme Colors */
+:root[data-theme="light"] {
+    --bg-color: #ffffff;
+    --text-color: #2c3e50;
+    --card-bg: #ffffff;
+    --card-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    --footer-bg: linear-gradient(135deg, #1a2634, #2c3e50);
+    --sidebar-bg: #2c3e50;
+}
+
+:root[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --card-bg: #2c2c2c;
+    --card-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    --footer-bg: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+    --sidebar-bg: #1a1a1a;
+}
+
+/* Apply Theme Colors */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.main-container {
+    background-color: var(--bg-color);
+}
+
+.content {
+    background-color: var(--bg-color);
+}
+
+.product-card {
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+}
+
+.product-card h3 {
+    color: var(--text-color);
+}
+
+.featured-products {
+    background-color: var(--bg-color);
+}
+
+.featured-products h2 {
+    color: var(--text-color);
+}
+
+.footer {
+    background: var(--footer-bg);
+}
+
+.sidebar {
+    background: var(--sidebar-bg);
+}
+
 /* Reset dan pengaturan dasar */
 * {
     margin: 0;
@@ -671,39 +730,35 @@ header {
 
 /* Footer Styling */
 .footer {
-    background: #2c3e50;
-    color: white;
-    padding: 60px 0 20px;
-    margin-top: 50px;
-    width: 100vw;
+    background: linear-gradient(135deg, #1a2634, #2c3e50);
+    color: #fff;
+    padding: 60px 0;
     position: relative;
-    left: 0;
-    right: 0;
-    margin-left: -8px;
-    margin-right: -8px;
-    margin-bottom: -100px;
-    overflow: hidden;
+    box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.3);
 }
 
 .footer-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Mengurangi kolom menjadi 3 */
+    gap: 40px;
+    padding: 0 50px;
 }
 
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-bottom: 40px;
+.footer-section {
+    padding: 35px;
+    border-radius: 15px;
+    transition: all 0.4s ease;
 }
 
 .footer-section h3 {
-    color: #3498db;
-    font-size: 1.4em;
+    color: #f1c40f;
+    font-size: 24px;
     margin-bottom: 20px;
     position: relative;
     padding-bottom: 10px;
+    letter-spacing: 1px;
 }
 
 .footer-section h3::after {
@@ -712,331 +767,155 @@ header {
     left: 0;
     bottom: 0;
     width: 50px;
-    height: 2px;
-    background: #3498db;
+    height: 3px;
+    background: #e74c3c;
+    border-radius: 2px;
 }
 
-.about-text {
-    line-height: 1.6;
-    margin-bottom: 20px;
+.footer-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-links li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.footer-links li a:hover {
+    background: rgba(241, 196, 15, 0.2);
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-info p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    color: #fff;
+}
+
+.contact-info p + p {
+    margin-top: 25px;
+}
+
+.contact-info p a,
+.contact-info p a:link,
+.contact-info p a:visited,
+.contact-info p a:hover,
+.contact-info p a:active {
+    color: inherit !important; /* Memaksa warna putih */
+    text-decoration: none;
+}
+
+/* Icon specific styles */
+.contact-info i {
+    font-size: 18px;
 }
 
 .social-links {
     display: flex;
     gap: 15px;
+    margin-top: 20px;
 }
 
-.social-links a {
-    color: white;
-    font-size: 1.2em;
-    transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: #3498db;
-}
-
-.quick-links {
-    list-style: none;
-}
-
-.quick-links li {
-    margin-bottom: 12px;
-}
-
-.quick-links a {
-    color: white;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.3s ease;
-}
-
-.quick-links a:hover {
-    color: #3498db;
-}
-
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.team-member {
-    text-align: center;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-.team-member:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-5px);
-}
-
-.team-member i {
-    font-size: 1.5em;
-    color: #3498db;
-    margin-bottom: 8px;
-}
-
-.team-member p {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.team-member span {
-    font-size: 0.9em;
-    color: #bdc3c7;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Responsive Design untuk Footer */
-@media (max-width: 768px) {
-    html, body {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
-
-    .footer {
-        padding: 40px 0 20px;
-        margin-top: 30px;
-        width: 100vw;
-        position: relative;
-        left: 0;
-        right: 0;
-        margin-left: -8px;
-        margin-right: -8px;
-        margin-bottom: -100px;
-    }
-
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        padding: 0 20px;
-        width: 100%;
-    }
-
-    .footer-content {
-        width: 100%;
-        padding: 0 15px;
-        box-sizing: border-box;
-    }
-
-    .team-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    .footer {
-        padding: 30px 0 15px;
-        width: 100vw;
-        position: relative;
-        left: 0;
-        right: 0;
-        margin-left: -8px;
-        margin-right: -8px;
-        margin-bottom: -100px;
-    }
-
-    .footer-content {
-        padding: 0 10px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .team-grid {
-        grid-template-columns: 1fr;
-        width: 100%;
-    }
-
-    .footer-section h3 {
-        font-size: 1.2em;
-        margin-bottom: 15px;
-    }
-}
-
-/* Product Detail Styling */
-.product-detail-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-.back-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #2c3e50;
-    text-decoration: none;
-    font-size: 1.1em;
-    margin-bottom: 30px;
-    transition: transform 0.3s ease;
-}
-
-.back-button:hover {
-    transform: translateX(-5px);
-}
-
-.product-detail {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.product-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.product-info h1 {
-    color: #2c3e50;
-    font-size: 2em;
-    margin-bottom: 15px;
-}
-
-.product-info .rating {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-
-.product-info .rating span {
-    color: #7f8c8d;
-    margin-left: 10px;
-}
-
-.price {
-    margin: 25px 0;
-}
-
-.price h2 {
-    color: #e74c3c;
-    font-size: 2em;
-    margin-bottom: 5px;
-}
-
-.price-note {
-    color: #7f8c8d;
-    font-size: 0.9em;
-}
-
-.description {
-    margin: 25px 0;
-}
-
-.description h3 {
-    color: #2c3e50;
-    margin: 15px 0 10px;
-}
-
-.description ul {
-    list-style-type: none;
-    padding-left: 0;
-}
-
-.description ul li {
-    padding: 5px 0;
-    padding-left: 25px;
-    position: relative;
-}
-
-.description ul li::before {
-    content: '✓';
-    color: #27ae60;
-    position: absolute;
-    left: 0;
-}
-
-.order-section {
-    margin-top: 30px;
-}
-
-.quantity {
-    margin-bottom: 20px;
-}
-
-.quantity-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.qty-btn {
-    width: 35px;
-    height: 35px;
-    border: none;
-    background: #2c3e50;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2em;
-}
-
-.qty-btn:hover {
-    background: #34495e;
-}
-
-#quantity {
-    width: 60px;
-    height: 35px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.buy-btn {
-    width: 100%;
-    padding: 15px;
-    background: #2c3e50;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.1em;
-    cursor: pointer;
+.social-link {
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    text-decoration: none; /* Menghilangkan garis bawah */
+}
+
+.social-link i {
+    color: #e0e0e0;
+    font-size: 18px;
     transition: all 0.3s ease;
 }
 
-.buy-btn:hover {
-    background: #34495e;
-    transform: translateY(-2px);
+.social-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
 }
 
-/* Responsive Design */
+/* Warna khusus untuk setiap social media saat hover */
+.social-link:hover i.fa-instagram {
+    color: #E1306C;
+}
+
+.social-link:hover i.fa-twitter {
+    color: #1DA1F2;
+}
+
+.social-link:hover i.fa-facebook {
+    color: #4267B2;
+}
+
+.social-link:hover i.fa-youtube {
+    color: #FF0000;
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.footer-bottom-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+}
+
+.footer-bottom-links {
+    display: flex;
+    gap: 30px;
+}
+
+.footer-bottom-links a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+    color: #f1c40f;
+}
+
+/* Media query untuk mobile */
 @media (max-width: 768px) {
-    .product-detail {
+    .footer-content {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 30px;
+        padding: 0 20px;
+    }
+
+    .footer-section {
         padding: 20px;
-    }
-
-    .product-info h1 {
-        font-size: 1.5em;
-    }
-
-    .price h2 {
-        font-size: 1.5em;
     }
 }
 
@@ -1695,4 +1574,193 @@ html {
 
 .button-buy:hover {
     background-color: #45a049;
+}
+
+/* Styling untuk footer about section */
+.footer-section.about {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.footer-logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+}
+
+.footer-section.about p {
+    color: #e0e0e0;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    letter-spacing: 0.3px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    text-decoration: none; /* Menghilangkan garis bawah */
+}
+
+.social-link i {
+    color: #e0e0e0;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-3px);
+}
+
+/* Warna khusus untuk setiap social media saat hover */
+.social-link:hover i.fa-instagram {
+    color: #E1306C;
+}
+
+.social-link:hover i.fa-twitter {
+    color: #1DA1F2;
+}
+
+.social-link:hover i.fa-facebook {
+    color: #4267B2;
+}
+
+.social-link:hover i.fa-youtube {
+    color: #FF0000;
+}
+
+/* Styling untuk tombol beli */
+.buy-btn {
+    background-color: #3498db; /* Warna latar belakang tombol */
+    color: #fff; /* Warna teks tombol */
+    padding: 12px 20px; /* Padding tombol */
+    border: none; /* Menghapus border default */
+    border-radius: 5px; /* Membuat sudut tombol melengkung */
+    font-size: 16px; /* Ukuran font tombol */
+    font-weight: bold; /* Menebalkan teks tombol */
+    cursor: pointer; /* Mengubah kursor saat hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transisi untuk efek hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan */
+}
+
+.buy-btn:hover {
+    background-color: #2980b9; /* Warna latar belakang saat hover */
+    transform: translateY(-2px); /* Efek angkat saat hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Menambah bayangan saat hover */
+}
+
+.buy-btn:active {
+    transform: translateY(0); /* Mengembalikan posisi saat ditekan */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Mengembalikan bayangan saat ditekan */
+}
+
+/* Contact Section Styling */
+.footer-section.contact h3 {
+    color: #fff;
+    font-size: 1.4em;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.footer-section.contact p {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+    color: #fff;
+    line-height: 1.6;
+}
+
+.footer-section.contact p i {
+    font-size: 18px;
+    color: #f1c40f;
+    margin-top: 3px;
+    min-width: 20px; /* Memastikan lebar ikon konsisten */
+}
+
+/* Styling khusus untuk alamat */
+.footer-section.contact p:last-child {
+    display: flex;
+    align-items: flex-start;
+}
+
+.footer-section.contact p:last-child i {
+    margin-top: 5px; /* Sesuaikan posisi ikon dengan baris pertama teks */
+}
+
+/* Responsive untuk mobile */
+@media (max-width: 768px) {
+    .footer-section.contact {
+        padding: 0 15px;
+    }
+
+    .footer-section.contact h3 {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+
+    .footer-section.contact p {
+        font-size: 0.9em;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    .footer-section.contact p i {
+        font-size: 16px;
+        min-width: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-section.contact p {
+        font-size: 0.85em;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+}
+
+/* Responsive Design untuk Footer Sections */
+@media (max-width: 768px) {
+    .footer-section.links,
+    .footer-section.contact {
+        display: none; /* Menyembunyikan Quick Links dan Contact Us di mobile */
+    }
+    
+    /* Menyesuaikan grid footer agar tidak ada gap kosong */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Memastikan section about tetap terlihat baik */
+    .footer-section.about {
+        padding: 20px;
+        margin: 0 15px;
+    }
 }

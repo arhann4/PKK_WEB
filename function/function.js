@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             
             const targetId = this.getAttribute('href');
+            if (targetId === '#') return; // Skip jika href hanya "#"
+            
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
@@ -50,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <label for="pengambilan">Metode Pengambilan:</label>
                             <select id="pengambilan" required>
                                 <option value="">Pilih metode pengambilan</option>
-                                <option value="Ambil di Stand">Ambil di Stand 14</option>
+                                <option value="Ambil di Stand 14">Ambil di Stand 14</option>
                                 <option value="Antar ke Kelas">Antar ke Kelas</option>
                                 
                             </select>
@@ -188,36 +190,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function updateTotal() {
             const quantity = parseInt(quantityInput.value);
-            const total = 3500 * quantity; // Harga dasar
-            document.getElementById('total').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            const total = 3500 * quantity;
+            const totalElement = document.getElementById('total');
+            if (totalElement) {
+                totalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+            }
         }
     }
-});
 
-// Smooth scroll untuk tombol "Lihat Menu"
-const scrollBtn = document.querySelector('.scroll-btn');
-if (scrollBtn) {
-    scrollBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const menuSection = document.querySelector('#menu');
-        if (menuSection) {
-            const headerOffset = 50;
-            const elementPosition = menuSection.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    // Scroll to menu button
+    const scrollBtn = document.querySelector('.scroll-btn');
+    if (scrollBtn) {
+        scrollBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const menuSection = document.querySelector('#menu');
+            if (menuSection) {
+                const headerOffset = 50;
+                const elementPosition = menuSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+
+    // Scroll to menu link
+    const scrollToMenu = document.getElementById('scrollToMenu');
+    if (scrollToMenu) {
+        scrollToMenu.addEventListener('click', function(e) {
+            e.preventDefault();
+            const menuSection = document.getElementById('menu');
+            if (menuSection) {
+                menuSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    }
+
+    // Scroll to top
+    const scrollToTop = document.querySelector('.scroll-to-top');
+    if (scrollToTop) {
+        scrollToTop.addEventListener('click', function(e) {
+            e.preventDefault();
             window.scrollTo({
-                top: offsetPosition,
+                top: 0,
                 behavior: 'smooth'
             });
-        }
-    });
-}
-
-document.getElementById('scrollToMenu').addEventListener('click', function() {
-    const menuSection = document.getElementById('menu');
-    menuSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-    });
+        });
+    }
 });
