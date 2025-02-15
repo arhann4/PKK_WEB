@@ -33,12 +33,36 @@ body {
 }
 
 .product-card {
-    background: var(--card-bg);
-    box-shadow: var(--card-shadow);
+    text-decoration: none; /* Menghilangkan garis bawah */
+    color: inherit; /* Menggunakan warna default */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .product-card h3 {
-    color: var(--text-color);
+    color: #2c3e50; /* Warna teks yang konsisten */
+    margin: 15px 0;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .featured-products {
@@ -1656,28 +1680,81 @@ html {
 }
 
 /* Styling untuk tombol beli */
-.buy-btn {
-    background-color: #3498db; /* Warna latar belakang tombol */
-    color: #fff; /* Warna teks tombol */
-    padding: 12px 20px; /* Padding tombol */
-    border: none; /* Menghapus border default */
-    border-radius: 5px; /* Membuat sudut tombol melengkung */
-    font-size: 16px; /* Ukuran font tombol */
-    font-weight: bold; /* Menebalkan teks tombol */
-    cursor: pointer; /* Mengubah kursor saat hover */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transisi untuk efek hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan */
+.beli-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+    width: auto; /* Mengubah dari 100% menjadi auto */
+    min-width: 120px; /* Memberikan lebar minimum */
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+    display: inline-flex; /* Mengubah dari flex menjadi inline-flex */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-.buy-btn:hover {
-    background-color: #2980b9; /* Warna latar belakang saat hover */
-    transform: translateY(-2px); /* Efek angkat saat hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Menambah bayangan saat hover */
+.beli-btn:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
 }
 
-.buy-btn:active {
-    transform: translateY(0); /* Mengembalikan posisi saat ditekan */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Mengembalikan bayangan saat ditekan */
+.beli-btn:hover {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+}
+
+.beli-btn:hover:before {
+    left: 100%;
+}
+
+.beli-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* Menambahkan ikon ke button */
+.beli-btn:after {
+    content: '→';
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.beli-btn:hover:after {
+    transform: translateX(3px);
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .beli-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        min-width: 100px;
+    }
+    
+    .beli-btn:after {
+        font-size: 16px;
+    }
 }
 
 /* Contact Section Styling */
