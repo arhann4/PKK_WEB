@@ -482,7 +482,7 @@ body {
     display: block;
     width: 30px;
     height: 3px;
-    background-color: #ffffff;
+    background-color: #f1c40f;
     border-radius: 3px;
     transition: all 0.3s ease;
 }
@@ -490,6 +490,7 @@ body {
 /* Animasi hamburger menjadi X */
 .menu-toggle.active span:nth-child(1) {
     transform: translateY(9px) rotate(45deg);
+    background-color: #f1c40f;
 }
 
 .menu-toggle.active span:nth-child(2) {
@@ -498,6 +499,7 @@ body {
 
 .menu-toggle.active span:nth-child(3) {
     transform: translateY(-9px) rotate(-45deg);
+    background-color: #f1c40f;
 }
 
 /* Sidebar */

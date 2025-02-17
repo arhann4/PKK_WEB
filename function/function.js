@@ -30,32 +30,96 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Buy button functionality with popup and WhatsApp integration
-    const buyButton = document.querySelector('.buy-btn');
-    if (buyButton) {
-        buyButton.addEventListener('click', function() {
-            // Buat elemen popup
+    const buyButtons = document.querySelectorAll('.buy-btn');
+    const quantityInput = document.getElementById('quantity');
+    const totalSpan = document.getElementById('total');
+    const basePrice = 3500; // Harga dasar per porsi
+
+    // Update total saat quantity berubah
+    if (quantityInput) {
+        quantityInput.addEventListener('input', function() {
+            const total = basePrice * this.value;
+            totalSpan.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+        });
+
+        // Tombol plus minus
+        document.querySelector('.minus').addEventListener('click', function() {
+            if (quantityInput.value > 1) {
+                quantityInput.value--;
+                quantityInput.dispatchEvent(new Event('input'));
+            }
+        });
+
+        document.querySelector('.plus').addEventListener('click', function() {
+            quantityInput.value++;
+            quantityInput.dispatchEvent(new Event('input'));
+        });
+    }
+
+    buyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const menuName = "Dadar Gulung";
+            const quantity = document.getElementById('quantity').value;
+            const totalHarga = basePrice * quantity;
+            
             const popup = document.createElement('div');
             popup.className = 'order-popup';
+            
+            // Tambahkan style untuk input porsi
+            const style = document.createElement('style');
+            style.textContent = `
+                .form-group input[type="number"] {
+                    width: 100%;
+                    padding: 12px;
+                    font-size: 16px;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                    margin-top: 5px;
+                }
+                .form-group input[type="number"]:focus {
+                    outline: none;
+                    border-color: #3498db;
+                }
+                /* Menghilangkan tombol spinner di Chrome, Safari, Edge, Opera */
+                .form-group input[type="number"]::-webkit-outer-spin-button,
+                .form-group input[type="number"]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+                /* Menghilangkan tombol spinner di Firefox */
+                .form-group input[type="number"] {
+                    -moz-appearance: textfield;
+                }
+            `;
+            document.head.appendChild(style);
+
             popup.innerHTML = `
                 <div class="popup-content">
                     <h3>Detail Pesanan</h3>
                     <form id="orderForm">
                         <div class="form-group">
-                            <label for="nama">Nama:</label>
-                            <input type="text" id="nama" required>
+                            <label for="todoName">Nama Pembeli:</label>
+                            <input type="text" id="todoName" placeholder="Nama dan kelas" required>
                         </div>
-                        <div class="form-group">
-                            <label for="kelas">Kelas:</label>
-                            <input type="text" id="kelas" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="pengambilan">Metode Pengambilan:</label>
-                            <select id="pengambilan" required>
+                           <div class="form-group">
+                            <label for="todoOpsi">Metode Pengambilan:</label>
+                            <select id="todoOpsi" required>
                                 <option value="">Pilih metode pengambilan</option>
-                                <option value="Ambil di Stand 14">Ambil di Stand 14</option>
-                                <option value="Antar ke Kelas">Antar ke Kelas</option>
-                                
+                                <option value="Stand 14">Ambil di Stand 14</option>
+                                <option value="Diantar">Antar ke Kelas</option>
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="todoMenu">Menu:</label>
+                            <input type="text" id="todoMenu" value="${menuName}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="todoTotal">Total Harga:</label>
+                            <input type="text" id="todoTotal" value="Rp ${totalHarga.toLocaleString('id-ID')}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="todoNotes">Jumlah Porsi:</label>
+                            <input type="text" id="todoNotes" value="${quantity}" readonly>
                         </div>
                         <div class="popup-buttons">
                             <button type="submit" class="confirm-btn">Konfirmasi</button>
@@ -65,138 +129,65 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
 
-            // Tambahkan style untuk popup
-            const style = document.createElement('style');
-            style.textContent = `
-                .order-popup {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0, 0, 0, 0.5);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 1000;
-                }
-                .popup-content {
-                    background: white;
-                    padding: 20px;
-                    border-radius: 8px;
-                    width: 90%;
-                    max-width: 400px;
-                }
-                .form-group {
-                    margin-bottom: 15px;
-                }
-                .form-group label {
-                    display: block;
-                    margin-bottom: 5px;
-                }
-                .form-group input {
-                    width: 100%;
-                    padding: 8px;
-                    border: 1px solid #ddd;
-                    border-radius: 4px;
-                }
-                .popup-buttons {
-                    display: flex;
-                    justify-content: flex-end;
-                    gap: 10px;
-                    margin-top: 20px;
-                }
-                .confirm-btn, .cancel-btn {
-                    padding: 8px 16px;
-                    border: none;
-                    border-radius: 4px;
-                    cursor: pointer;
-                }
-                .confirm-btn {
-                    background: #4CAF50;
-                    color: white;
-                }
-                .cancel-btn {
-                    background: #f44336;
-                    color: white;
-                }
-            `;
-
-            document.head.appendChild(style);
             document.body.appendChild(popup);
 
-            // Handle form submission with WhatsApp
+            // Handle form submission
             const orderForm = document.getElementById('orderForm');
-            if (orderForm) {
-                orderForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const nama = document.getElementById('nama').value;
-                    const kelas = document.getElementById('kelas').value;
-                    const quantity = document.getElementById('quantity').value || 1;
-                    const pengambilan = document.getElementById('pengambilan').value;
-                    const total = 3500 * quantity;
-                    
-                    if (nama && kelas && pengambilan) {
-                        // Format pesan WhatsApp
-                        const message = `Halo, saya ingin memesan: Dadar Gulung V2 %0A%0A` +
-                            `Nama: ${nama}%0A` +
-                            `Kelas: ${kelas}%0A` +
-                            `Jumlah: ${quantity}%0A` +
-                            `Pengambilan: ${pengambilan}%0A` +
-                            `Total: Rp ${total.toLocaleString('id-ID')}`;
+            orderForm.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-                        // Nomor WhatsApp tujuan
-                        const phoneNumber = '6281522775937';
+                const orderData = {
+                    name: document.getElementById('todoName').value,
+                    menu: document.getElementById('todoMenu').value,
+                    status: false,
+                    pengambilan: document.getElementById('todoOpsi').value,
+                    notes: document.getElementById('todoNotes').value,
+                    timestamp: Date.now()
+                };
 
-                        // Buat URL WhatsApp
-                        const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+                // Simpan ke Firebase dengan referensi yang sama
+                const ordersRef = firebase.database().ref('todos');
+                ordersRef.push(orderData)
+                    .then(() => {
+                        // Hapus popup form
+                        popup.remove();
+                        
+                        // Buat popup sukses
+                        const successPopup = document.createElement('div');
+                        successPopup.className = 'success-popup';
+                        successPopup.innerHTML = `
+                            <div class="success-icon"></div>
+                            <h3>Pesanan Berhasil!</h3>
+                            <p>Pesanan Anda telah berhasil dikirim</p>
+                        `;
+                        document.body.appendChild(successPopup);
 
-                        // Buka WhatsApp di tab baru
-                        window.open(whatsappURL, '_blank');
+                        // Buat pesan WhatsApp
+                        const waMessage = `Halo, saya ${orderData.name} ingin memesan:\n
+- Menu: ${orderData.menu}\n
+- Jumlah: ${orderData.notes} porsi\n
+- Pengambilan: ${orderData.pengambilan}`;
+                        
+                        const waURL = `https://wa.me/6281522775937?text=${encodeURIComponent(waMessage)}`;
 
-                        // Tutup popup
-                        document.body.removeChild(popup);
-                    }
-                });
-            }
+                        // Hapus popup sukses dan redirect ke WhatsApp setelah 2 detik
+                        setTimeout(() => {
+                            successPopup.remove();
+                            window.open(waURL, '_blank');
+                        }, 2000);
+                    })
+                    .catch((error) => {
+                        alert('Terjadi kesalahan: ' + error.message);
+                    });
+            });
 
             // Handle cancel button
             const cancelBtn = popup.querySelector('.cancel-btn');
-            if (cancelBtn) {
-                cancelBtn.addEventListener('click', function() {
-                    document.body.removeChild(popup);
-                });
-            }
+            cancelBtn.addEventListener('click', function() {
+                popup.remove();
+            });
         });
-    }
-
-    // Quantity controls
-    const minusBtn = document.querySelector('.minus');
-    const plusBtn = document.querySelector('.plus');
-    const quantityInput = document.getElementById('quantity');
-
-    if (minusBtn && plusBtn && quantityInput) {
-        minusBtn.addEventListener('click', function() {
-            if (quantityInput.value > 1) {
-                quantityInput.value--;
-                updateTotal();
-            }
-        });
-
-        plusBtn.addEventListener('click', function() {
-            quantityInput.value++;
-            updateTotal();
-        });
-
-        function updateTotal() {
-            const quantity = parseInt(quantityInput.value);
-            const total = 3500 * quantity;
-            const totalElement = document.getElementById('total');
-            if (totalElement) {
-                totalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-            }
-        }
-    }
+    });
 
     // Scroll to menu button
     const scrollBtn = document.querySelector('.scroll-btn');
@@ -243,4 +234,147 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Tambahkan style untuk popup sukses yang lebih profesional
+    const style = document.createElement('style');
+    style.textContent = `
+        .success-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            animation: slideInDown 0.5s ease-out, fadeOut 0.5s ease-out 1.5s;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            background: #4CAF50;
+            position: relative;
+            animation: scaleIn 0.3s ease-out 0.2s both;
+        }
+
+        .success-icon:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 4px solid white;
+            animation: borderScale 0.3s ease-out 0.4s both;
+        }
+
+        .success-icon:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%) rotate(45deg);
+            width: 30px;
+            height: 60px;
+            border-right: 8px solid white;
+            border-bottom: 8px solid white;
+            animation: checkmark 0.3s ease-out 0.6s both;
+        }
+
+        .success-popup h3 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin: 0 0 10px;
+            animation: fadeInUp 0.3s ease-out 0.7s both;
+        }
+
+        .success-popup p {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin: 0;
+            animation: fadeInUp 0.3s ease-out 0.8s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translate(-50%, -70%);
+                opacity: 0;
+            }
+            to {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+            to {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes borderScale {
+            from {
+                width: 0;
+                height: 0;
+                opacity: 0;
+            }
+            to {
+                width: 90px;
+                height: 90px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes checkmark {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0;
+            }
+            50% {
+                width: 30px;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 30px;
+                height: 60px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
 });

@@ -6,6 +6,26 @@
     <title>Pizza Special - Detail Produk</title>
     <link rel="stylesheet" href="../css/pisang.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <script>
+        // Konfigurasi Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyBNApHz09nkIKfjHgYiTCwB-EzmWvEuul8", 
+            authDomain: "list-c8f99.firebaseapp.com",
+            databaseURL: "https://list-c8f99-default-rtdb.firebaseio.com/", 
+            projectId: "list-c8f99", 
+            storageBucket: "list-c8f99.firebasestorage.app", 
+            messagingSenderId: "561609182690", 
+            appId: "1:561609182690:web:fd0d15a8577a3a20573dbb", 
+            measurementId: "G-NNNHXKXJN7" 
+        };
+
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 </head>
 <body>
     
@@ -69,7 +89,7 @@
         <div class="footer-content">
             <div class="footer-section about">
                 <img src="../img/logo.jpg" alt="Beken Meal Logo" class="footer-logo">
-                <p>Beken Meal PPLG adalah platform pemesanan makanan yang memberikan pengalaman kuliner terbaik.</p>
+                <p>Baken Meal PPLG adalah platform pemesanan makanan yang memberikan pengalaman kuliner terbaik.</p>
                 <div class="social-links">
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
