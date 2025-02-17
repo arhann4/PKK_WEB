@@ -99,12 +99,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     <form id="orderForm">
                         <div class="form-group">
                             <label for="todoName">Nama Pembeli:</label>
-                            <input type="text" id="todoName" placeholder="Masukkan nama pembeli" required>
+                            <input type="text" id="todoName" placeholder="Masukkan Nama dan Kelas" required>
                         </div>
                            <div class="form-group">
                             <label for="todoOpsi">Metode Pengambilan:</label>
                             <select id="todoOpsi" required>
-                                <option value="">Pilih metode pengambilan</option>
+                                <option value="">Pilih Metode Pengambilan</option>
                                 <option value="Stand 14">Ambil di Stand 14</option>
                                 <option value="Diantar">Antar ke Kelas</option>
                             </select>
