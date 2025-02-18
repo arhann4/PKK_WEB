@@ -34,55 +34,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const quantityInput = document.getElementById('quantity');
     const totalSpan = document.getElementById('total');
     const basePrice = 3500; // Harga dasar per porsi
-    let maxStock = 20; // Default value
     const stockRef = firebase.database().ref('stock/dadarGulung');
+    const stockInfo = document.querySelector('.stock-info');
     
-    // Reset stok ke 20
-    stockRef.set(20)
-        .then(() => {
-            console.log('Stok berhasil direset ke 20');
-            // Update tampilan stok
-            document.querySelector('.stock-info').textContent = `Stok tersisa: 20`;
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('Terjadi kesalahan saat mereset stok');
-        });
-
-    // Mengambil nilai stok awal dan mendengarkan perubahan
-    stockRef.on('value', (snapshot) => {
-        maxStock = snapshot.val() || 20;
-        document.querySelector('.stock-info').textContent = `Stok tersisa: ${maxStock}`;
-        
-        // Update max attribute pada input
-        if (quantityInput) {
-            quantityInput.max = maxStock;
-            
-            // Reset nilai jika melebihi stok baru
-            if (parseInt(quantityInput.value) > maxStock) {
-                quantityInput.value = maxStock;
-                updateTotal();
-            }
-        }
-    });
-
+    // Fungsi untuk update total hanya jika elemen ada
     function updateTotal() {
-        const qty = parseInt(quantityInput.value);
-        const total = qty * basePrice;
-        totalSpan.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+        if (quantityInput && totalSpan) {
+            const qty = parseInt(quantityInput.value);
+            const price = 3500;
+            const total = qty * price;
+            totalSpan.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+        }
     }
 
+    // Pastikan element stock-info ada sebelum diupdate
+    if (stockInfo) {
+        // Hanya mengambil nilai stok tanpa mereset
+        stockRef.once('value')
+            .then((snapshot) => {
+                const currentStock = snapshot.val() || 20;
+                stockInfo.textContent = `Stok tersisa: ${currentStock}`;
+                if (quantityInput) {
+                    quantityInput.max = currentStock;
+                }
+            });
+
+        // Mendengarkan perubahan stok
+        stockRef.on('value', (snapshot) => {
+            const currentStock = snapshot.val() || 20;
+            stockInfo.textContent = `Stok tersisa: ${currentStock}`;
+            if (quantityInput) {
+                quantityInput.max = currentStock;
+            }
+        });
+    }
+
+    let maxStock = 20;
+    
     // Tombol plus minus
     const plusBtn = document.querySelector('.plus');
     const minusBtn = document.querySelector('.minus');
-    const quantity = document.getElementById('quantity');
     const orderBtn = document.querySelector('.order-button');
 
-    if (plusBtn) {
+    if (plusBtn && quantityInput) {
         plusBtn.addEventListener('click', function() {
-            let currentQty = parseInt(quantity.value);
+            let currentQty = parseInt(quantityInput.value);
             if (currentQty < maxStock) {
-                quantity.value = currentQty + 1;
+                quantityInput.value = currentQty + 1;
                 updateTotal();
             } else {
                 alert('Maaf, stok tidak mencukupi!');
@@ -90,18 +88,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    if (minusBtn) {
+    if (minusBtn && quantityInput) {
         minusBtn.addEventListener('click', function() {
-            let currentQty = parseInt(quantity.value);
+            let currentQty = parseInt(quantityInput.value);
             if (currentQty > 1) {
-                quantity.value = currentQty - 1;
+                quantityInput.value = currentQty - 1;
                 updateTotal();
             }
         });
     }
 
-    if (quantity) {
-        quantity.addEventListener('input', function() {
+    if (quantityInput) {
+        quantityInput.addEventListener('input', function() {
             let currentQty = parseInt(this.value);
             if (currentQty > maxStock) {
                 alert('Maaf, stok tidak mencukupi!');
@@ -119,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             stockRef.once('value').then((snapshot) => {
                 const currentStock = snapshot.val() || 20;
+                console.log('Stok saat ini:', currentStock); // Debug log
                 
                 if (quantity > currentStock) {
                     alert('Maaf, stok tidak mencukupi!');
@@ -134,27 +133,30 @@ document.addEventListener('DOMContentLoaded', function() {
                     timestamp: Date.now()
                 };
 
-                // Simpan pesanan
-                firebase.database().ref('todos').push(orderData)
+                // Simpan pesanan dan update stok secara bersamaan
+                const updates = {};
+                updates['/todos/' + firebase.database().ref().push().key] = orderData;
+                updates['/stock/dadarGulung'] = currentStock - quantity;
+
+                return firebase.database().ref().update(updates)
                     .then(() => {
-                        // Update stok
-                        return stockRef.transaction(currentStock => {
-                            return (currentStock || 20) - quantity;
-                        });
-                    })
-                    .then(() => {
+                        console.log('Stok berkurang:', quantity); // Debug log
+                        console.log('Stok tersisa:', currentStock - quantity); // Debug log
                         alert('Pesanan berhasil!');
                         window.location.href = '../view/view.html';
                     })
                     .catch((error) => {
+                        console.error('Error:', error);
                         alert('Terjadi kesalahan: ' + error.message);
                     });
             });
         });
     }
 
-    // Initial total update
-    updateTotal();
+    // Initial total update hanya jika elemen ada
+    if (quantityInput && totalSpan) {
+        updateTotal();
+    }
 
     buyButtons.forEach(button => {
         button.addEventListener('click', function() {
