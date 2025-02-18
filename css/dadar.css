@@ -565,3 +565,13 @@
         gap: 10px;
     }
 }
+
+.stock-info {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+input[type="number"]:invalid {
+    border: 2px solid red;
+}

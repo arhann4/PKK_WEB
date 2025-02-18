@@ -9,6 +9,47 @@ function saveTodoList() {
     localStorage.setItem("todoList", JSON.stringify(todoList));
 }
 
+function deleteItem(key, quantity) {
+    if (confirm('Apakah Anda yakin ingin menghapus pesanan ini?')) {
+        // Hapus pesanan
+        firebase.database().ref('todos/' + key).remove()
+            .then(() => {
+                // Update stok (menambah kembali)
+                const stockRef = firebase.database().ref('stock/dadarGulung');
+                stockRef.transaction(currentStock => {
+                    return (currentStock || 0) + parseInt(quantity);
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+}
+
+// Update tampilan list untuk menampilkan jumlah porsi
+function renderList(snapshot) {
+    const todoList = document.getElementById('todoList');
+    todoList.innerHTML = '';
+    
+    snapshot.forEach((childSnapshot) => {
+        const data = childSnapshot.val();
+        const key = childSnapshot.key;
+        
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span class="todo-item ${data.status ? 'completed' : ''}">
+                ${data.name} - ${data.menu} (${data.notes} porsi) - ${data.pengambilan}
+            </span>
+            <div class="todo-actions">
+                <button onclick="toggleStatus('${key}')">
+                    ${data.status ? 'Batal Selesai' : 'Selesai'}
+                </button>
+                <button onclick="deleteItem('${key}', '${data.notes}')">Hapus</button>
+            </div>
+        `;
+        todoList.appendChild(li);
+    });
+} 
 // Tambah To-Do
 function addTodo(event) {
     event.preventDefault();

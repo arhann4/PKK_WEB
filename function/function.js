@@ -34,27 +34,127 @@ document.addEventListener('DOMContentLoaded', function() {
     const quantityInput = document.getElementById('quantity');
     const totalSpan = document.getElementById('total');
     const basePrice = 3500; // Harga dasar per porsi
-
-    // Update total saat quantity berubah
-    if (quantityInput) {
-        quantityInput.addEventListener('input', function() {
-            const total = basePrice * this.value;
-            totalSpan.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+    let maxStock = 20; // Default value
+    const stockRef = firebase.database().ref('stock/dadarGulung');
+    
+    // Reset stok ke 20
+    stockRef.set(20)
+        .then(() => {
+            console.log('Stok berhasil direset ke 20');
+            // Update tampilan stok
+            document.querySelector('.stock-info').textContent = `Stok tersisa: 20`;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Terjadi kesalahan saat mereset stok');
         });
 
-        // Tombol plus minus
-        document.querySelector('.minus').addEventListener('click', function() {
-            if (quantityInput.value > 1) {
-                quantityInput.value--;
-                quantityInput.dispatchEvent(new Event('input'));
+    // Mengambil nilai stok awal dan mendengarkan perubahan
+    stockRef.on('value', (snapshot) => {
+        maxStock = snapshot.val() || 20;
+        document.querySelector('.stock-info').textContent = `Stok tersisa: ${maxStock}`;
+        
+        // Update max attribute pada input
+        if (quantityInput) {
+            quantityInput.max = maxStock;
+            
+            // Reset nilai jika melebihi stok baru
+            if (parseInt(quantityInput.value) > maxStock) {
+                quantityInput.value = maxStock;
+                updateTotal();
+            }
+        }
+    });
+
+    function updateTotal() {
+        const qty = parseInt(quantityInput.value);
+        const total = qty * basePrice;
+        totalSpan.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+    }
+
+    // Tombol plus minus
+    const plusBtn = document.querySelector('.plus');
+    const minusBtn = document.querySelector('.minus');
+    const quantity = document.getElementById('quantity');
+    const orderBtn = document.querySelector('.order-button');
+
+    if (plusBtn) {
+        plusBtn.addEventListener('click', function() {
+            let currentQty = parseInt(quantity.value);
+            if (currentQty < maxStock) {
+                quantity.value = currentQty + 1;
+                updateTotal();
+            } else {
+                alert('Maaf, stok tidak mencukupi!');
             }
         });
+    }
 
-        document.querySelector('.plus').addEventListener('click', function() {
-            quantityInput.value++;
-            quantityInput.dispatchEvent(new Event('input'));
+    if (minusBtn) {
+        minusBtn.addEventListener('click', function() {
+            let currentQty = parseInt(quantity.value);
+            if (currentQty > 1) {
+                quantity.value = currentQty - 1;
+                updateTotal();
+            }
         });
     }
+
+    if (quantity) {
+        quantity.addEventListener('input', function() {
+            let currentQty = parseInt(this.value);
+            if (currentQty > maxStock) {
+                alert('Maaf, stok tidak mencukupi!');
+                this.value = maxStock;
+            } else if (currentQty < 1 || isNaN(currentQty)) {
+                this.value = 1;
+            }
+            updateTotal();
+        });
+    }
+
+    if (orderBtn) {
+        orderBtn.addEventListener('click', function() {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            
+            stockRef.once('value').then((snapshot) => {
+                const currentStock = snapshot.val() || 20;
+                
+                if (quantity > currentStock) {
+                    alert('Maaf, stok tidak mencukupi!');
+                    return;
+                }
+
+                const orderData = {
+                    name: "Customer",
+                    menu: "Dadar Gulung",
+                    status: false,
+                    pengambilan: "Dine In",
+                    notes: quantity,
+                    timestamp: Date.now()
+                };
+
+                // Simpan pesanan
+                firebase.database().ref('todos').push(orderData)
+                    .then(() => {
+                        // Update stok
+                        return stockRef.transaction(currentStock => {
+                            return (currentStock || 20) - quantity;
+                        });
+                    })
+                    .then(() => {
+                        alert('Pesanan berhasil!');
+                        window.location.href = '../view/view.html';
+                    })
+                    .catch((error) => {
+                        alert('Terjadi kesalahan: ' + error.message);
+                    });
+            });
+        });
+    }
+
+    // Initial total update
+    updateTotal();
 
     buyButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -136,19 +236,28 @@ document.addEventListener('DOMContentLoaded', function() {
             orderForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
+                const quantity = parseInt(document.getElementById('todoNotes').value);
                 const orderData = {
                     name: document.getElementById('todoName').value,
                     menu: document.getElementById('todoMenu').value,
                     status: false,
                     pengambilan: document.getElementById('todoOpsi').value,
-                    notes: document.getElementById('todoNotes').value,
+                    notes: quantity,
                     timestamp: Date.now()
                 };
 
-                // Simpan ke Firebase dengan referensi yang sama
+                // Cek stok sekali lagi sebelum submit
+                if (quantity > maxStock) {
+                    alert('Maaf, stok tidak mencukupi!');
+                    return;
+                }
+
                 const ordersRef = firebase.database().ref('todos');
                 ordersRef.push(orderData)
                     .then(() => {
+                        // Update stok setelah pesanan berhasil
+                        updateStock(quantity);
+                        
                         // Hapus popup form
                         popup.remove();
                         
@@ -377,4 +486,51 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
+
+    // Fungsi untuk mengupdate stok di Firebase
+    function updateStock(quantity) {
+        stockRef.transaction(currentStock => {
+            return (currentStock || 20) - quantity;
+        });
+    }
 });
+
+// Fungsi untuk submit pesanan
+function submitOrder() {
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const stockRef = firebase.database().ref('stock/dadarGulung');
+    
+    stockRef.once('value').then((snapshot) => {
+        const currentStock = snapshot.val() || 20;
+        
+        if (quantity > currentStock) {
+            alert('Maaf, stok tidak mencukupi!');
+            return;
+        }
+
+        const orderData = {
+            name: "Customer", // Sesuaikan dengan kebutuhan
+            menu: "Dadar Gulung",
+            status: false,
+            pengambilan: "Dine In", // Sesuaikan dengan kebutuhan
+            notes: quantity,
+            timestamp: Date.now()
+        };
+
+        // Simpan pesanan
+        firebase.database().ref('todos').push(orderData)
+            .then(() => {
+                // Update stok
+                return stockRef.transaction(currentStock => {
+                    return (currentStock || 20) - quantity;
+                });
+            })
+            .then(() => {
+                alert('Pesanan berhasil!');
+                window.location.href = '../view/view.html';
+            })
+            .catch((error) => {
+                alert('Terjadi kesalahan: ' + error.message);
+            });
+    });
+}
