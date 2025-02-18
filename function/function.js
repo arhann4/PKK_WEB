@@ -109,8 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const quantity = parseInt(document.getElementById('quantity').value);
             
             stockRef.once('value').then((snapshot) => {
-                const currentStock = snapshot.val() || 19;
-                console.log('Stok saat ini:', currentStock);
+                const currentStock = snapshot.val();
                 
                 if (quantity > currentStock) {
                     alert('Maaf, stok tidak mencukupi!');
@@ -133,8 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 return firebase.database().ref().update(updates)
                     .then(() => {
-                        console.log('Stok berkurang:', quantity);
-                        console.log('Stok tersisa:', currentStock - quantity);
                         alert('Pesanan berhasil!');
                         window.location.href = '../view/view.html';
                     })
