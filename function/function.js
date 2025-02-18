@@ -49,23 +49,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Pastikan element stock-info ada sebelum diupdate
     if (stockInfo) {
-        // Hanya mengambil nilai stok tanpa mereset
-        stockRef.once('value')
-            .then((snapshot) => {
-                const currentStock = snapshot.val() || 20;
-                stockInfo.textContent = `Stok tersisa: ${currentStock}`;
-                if (quantityInput) {
-                    quantityInput.max = currentStock;
-                }
-            });
-
-        // Mendengarkan perubahan stok
+        // Hanya membaca nilai stok dari database
         stockRef.on('value', (snapshot) => {
-            const currentStock = snapshot.val() || 20;
+            const currentStock = snapshot.val();
+            maxStock = currentStock;
             stockInfo.textContent = `Stok tersisa: ${currentStock}`;
             if (quantityInput) {
                 quantityInput.max = currentStock;
+                quantityInput.value = Math.min(parseInt(quantityInput.value), currentStock);
             }
+            updateTotal();
         });
     }
 
@@ -116,8 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const quantity = parseInt(document.getElementById('quantity').value);
             
             stockRef.once('value').then((snapshot) => {
-                const currentStock = snapshot.val() || 20;
-                console.log('Stok saat ini:', currentStock); // Debug log
+                const currentStock = snapshot.val() || 19;
+                console.log('Stok saat ini:', currentStock);
                 
                 if (quantity > currentStock) {
                     alert('Maaf, stok tidak mencukupi!');
@@ -140,8 +133,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 return firebase.database().ref().update(updates)
                     .then(() => {
-                        console.log('Stok berkurang:', quantity); // Debug log
-                        console.log('Stok tersisa:', currentStock - quantity); // Debug log
+                        console.log('Stok berkurang:', quantity);
+                        console.log('Stok tersisa:', currentStock - quantity);
                         alert('Pesanan berhasil!');
                         window.location.href = '../view/view.html';
                     })
